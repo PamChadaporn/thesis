@@ -32,7 +32,6 @@ body {
                         <li class="nav-item"><a class="nav-link active text-dack" aria-current="page" href="index.php">หน้าแรก</a></li>
                         <li class="nav-item"><a class="nav-link text-dack" href="search.php">ค้นหาเพื่อน</a></li>
                         <li class="nav-item"><a class="nav-link text-dack" href="new_tutor.php">สมัครติวเตอร์</a></li>
-                        <li class="nav-item"><a class="nav-link text-dack" href="new_tutor.php">test</a></li>
 
                             <?php if(!empty($_SESSION['ID'])) {?>
                             <li class="nav-item"><a class="nav-link" href="emp/product_user_buy.php">นัดหมาย</a></li>
