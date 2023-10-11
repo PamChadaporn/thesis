@@ -30,7 +30,7 @@ text-decoration:none;
   border-radius: 0.25rem;
 }
 </style>
-<title>Beauteous Shop</title>
+<title>login</title>
 </head><br><br><br>
 <body id="bg">
         <?php include('errors.php'); ?>

@@ -13,7 +13,7 @@
                   $story = $conn->prepare("SELECT * FROM contact where id_con=1");
                   $story->execute();
                   $sto = $story->fetch();
-              ?>
+        ?>
         <title><?php echo $sto['name'];?></title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
@@ -91,6 +91,25 @@
 </div>
           </form>
 </div>
+<div class="box">
+    img
+    <br>
+    name
+    <br>
+    subject
+    <br>
+    details
+</div>
+
+<style>
+div.box {
+  background-color: white;
+  width: 300px;
+  border: 1px solid black;
+  padding: 50px;
+  margin: 20px;
+}
+</style>
          <div class="row">
       <div class="container">
       <div class="row">

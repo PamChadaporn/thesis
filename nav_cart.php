@@ -30,21 +30,9 @@ body {
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4 justify-content-between">
                         <li class="nav-item"><a class="nav-link active text-dack" aria-current="page" href="index.php">หน้าแรก</a></li>
-                        <li class="nav-item"><a class="nav-link text-dack" href="index.php">ค้นหาเพื่อน</a></li>
+                        <li class="nav-item"><a class="nav-link text-dack" href="index.php">ค้นหาเพื่อนติว</a></li>
                         <li class="nav-item"><a class="nav-link text-dack" href="new_tutor.php">สมัครติวเตอร์</a></li>
-
-                            <?php if(!empty($_SESSION['Firstname'])) {?>
-                            <li class="nav-item"><a class="nav-link" href="emp/product_user_buy.php">นัดหมาย</a></li>
-                            <?php }?>
-                          </li>
-                        
                     </ul>
-                    
-                    <form class="form-inline mb-2 mb-lg-0 ms-lg-4">
-                        <a class="btn text-white" type="submit" href="new_user.php" style="background-color: #ad1457">
-                            ลงทะเบียน
-                        </a>
-                    </form>
                     <ul class="navbar-nav">
                     <li class="nav-item dropdown">
                       <?php if(!empty($_SESSION['Firstname'])) {?>

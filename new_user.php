@@ -39,7 +39,7 @@ body{
 		<div class="container p-5">
     <div class="row">
     <div class="card"><br>
-    <h2>ลงทะเบียน</h2>
+    <center><h2>ลงทะเบียน</h2></center>
     <div class="col-md-12">
 				<form class="login100-form validate-form" name ="form1" method="post" action="new_user.php" class="p-5 bg-white">
               <div class="form-group ">
@@ -77,6 +77,7 @@ body{
                 
                       <option value="1">ชาย</option>
                       <option value="2">หญิง</option>
+                      <option value="3">LGBTQ+</option>
                     </select>
                 
                 </div>
@@ -101,16 +102,10 @@ body{
                 
                 </div>
               </div>
-              <div class="form-group ">
-                <div class="mb-3 mb-md-2">
-                  <label class="font-weight-bold" for="tel">เบอร์โทร</label>
-                  <input type="text" id="tel" class="form-control" name="tel" required >
-                </div>
-              </div>
               <div class="form-group">
                 <div class="col-md-12">
-                  <button type="submit" name="save" class="btn btn-primary  py-2 px-4">บันทึก</button> 
-                  </center>
+                <center><button type="submit" name="save" class="btn btn-primary  py-2 px-4">บันทึก</button> 
+                </center>
                 </div>
               </div>
               <br>
@@ -133,7 +128,6 @@ if(isset($_POST["save"])){ //เมื่อกดปุ่ม save
     $firstname = $_POST['firstname'];
     $userlevel = 2;
     $sex = $_POST['sex'];
-    $tel = $_POST['tel'];
     $pass = $password;
     
     if($pass != $password2){
@@ -148,8 +142,8 @@ if(isset($_POST["save"])){ //เมื่อกดปุ่ม save
     }else{
 
     //คำสั่ง sql
-    $sql1 = "INSERT INTO user(Password,Firstname,email,sex,category_id,Tel,Userlevel)
-         VALUES ('$pass','$firstname','$email','$sex','$category_id','tel','$userlevel')";
+    $sql1 = "INSERT INTO user(Password,Firstname,email,sex,category_id,Userlevel)
+         VALUES ('$pass','$firstname','$email','$sex','$category_id','$userlevel')";
     
         if(mysqli_query($conn,$sql1)){ 
           echo "<script>alert('บันทึก');window.location='login.php';</script>";
