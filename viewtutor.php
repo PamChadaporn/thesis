@@ -85,6 +85,7 @@ if (!isset($_SESSION['email']) || $_SESSION['Userlevel'] !== '2') {
         <!-- Navigation-->
         <?php include('nav_cart.php')?>
 
+        <p class="text-muted fs-4">ข้อมูลติวเตอร์</p>
 <div>
 <table>
     <?php
