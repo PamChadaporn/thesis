@@ -118,7 +118,7 @@ body{
               <div class="form-group ">
                 <div class="mb-3 mb-md-2">
                   <label class="font-weight-bold" for="date_time">วันและเวลาที่สะดวกติว</label>
-                  <textarea type="text" id="date_time" class="form-control" name="date_time" style="width: 100%; higt: 100%: margin: auto;" placeholder="เสาร์-อาททิตย์ เวลา 9.00-12.00 น."></textarea>
+                  <textarea type="text" id="date_time" class="form-control" name="date_time" style="width: 100%; higt: 100%: margin: auto;" placeholder="เสาร์-อาทิตย์ เวลา 9.00-12.00 น."></textarea>
                 </div>
               </div>
               <div class="form-group ">
