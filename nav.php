@@ -22,7 +22,7 @@ body {
                 
             }else{
             ?>
-                <a class="navbar-brand text-dack" href="#!">
+                <a class="navbar-brand text-dack" href="index.php">
                 <?php echo $teacs['name'];?>
                 </a>
   <?php } ?>

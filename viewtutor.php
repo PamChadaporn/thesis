@@ -1,3 +1,15 @@
+
+<?php
+session_start();
+
+include('config/server.php');
+
+// ตรวจสอบว่ามีการล็อกอินหรือไม่
+if (!isset($_SESSION['email']) || $_SESSION['Userlevel'] !== '2') {
+  header("Location: login.php");
+  exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -13,8 +25,8 @@
                   $story = $conn->prepare("SELECT * FROM contact where id_con=1");
                   $story->execute();
                   $sto = $story->fetch();
-              
         ?>
+
         <title><?php echo $sto['name'];?></title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
@@ -25,7 +37,7 @@
 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
 
         <style>
         @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100;200;500;600;900&family=Sarabun:wght@200&display=swap');
@@ -71,9 +83,45 @@
     </head>
     <body style="background-color: #fce4ec">
         <!-- Navigation-->
-        <?php include('nav.php')?>
-        
-        
+        <?php include('nav_cart.php')?>
+
+<div>
+<table>
+    <?php
+    $sql = "SELECT picture, nickname, class, details, subject, price, date_time, location, contact FROM tutor";
+    $stmt = $conn->query($sql);
+
+    $result = $stmt->fetchAll();
+
+    if (count($result) > 0) {
+        foreach ($result as $row) {
+            $picture = $row['picture'];
+            echo '<tr>';
+            echo '<td><img src="data:image/jpeg;base64,'.base64_encode($picture).'"></td>';
+            echo '</tr>';
+            echo '<tr>';
+            echo '<td>nickname: ' . $row['nickname'] . ' - subject: ' . $row['subject'] . '</td>';
+            echo '</tr>';
+            echo '<tr>';
+            echo '<td>class: ' . $row['class'] . ' - details: ' . $row['details'] . '</td>';
+            echo '</tr>';
+            echo '<tr>';
+            echo '<td>price: ' . $row['price'] . ' - datetime: ' . $row['date_time'] . '</td>';
+            echo '</tr>';
+            echo '<tr>';
+            echo '<td>location: ' . $row['location'] . ' - contact: ' . $row['contact'] . '</td>';
+            echo '</tr>';
+        }
+    }
+     else {
+        echo "0 results";
+    }
+
+
+    ?>
+</table>
+</div>
+
             <?php include('footer.php')?>    
         <!-- Bootstrap core JS-->
       
@@ -111,4 +159,3 @@
 
     </body>
 </html>
-

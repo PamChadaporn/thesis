@@ -1,6 +1,3 @@
-<?php 
-    session_start();
-?>
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100;200;500;600;900&family=Sarabun:wght@200&display=swap');
@@ -22,7 +19,7 @@ body {
                 
             }else{
             ?>
-                <a class="navbar-brand text-dack" href="#!">
+                <a class="navbar-brand text-dack" href="index.php">
                 <?php echo $teacs['name'];?>
                 </a>
   <?php } ?>
@@ -30,7 +27,7 @@ body {
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4 justify-content-between">
                         <li class="nav-item"><a class="nav-link active text-dack" aria-current="page" href="index.php">หน้าแรก</a></li>
-                        <li class="nav-item"><a class="nav-link text-dack" href="index.php">ค้นหาเพื่อนติว</a></li>
+                        <li class="nav-item"><a class="nav-link text-dack" href="search.php">ค้นหาเพื่อนติว</a></li>
                         <li class="nav-item"><a class="nav-link text-dack" href="new_tutor.php">สมัครติวเตอร์</a></li>
                     </ul>
                     <ul class="navbar-nav">

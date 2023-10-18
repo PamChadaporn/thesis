@@ -1,3 +1,15 @@
+
+<?php
+session_start();
+
+include('config/server.php');
+
+// ตรวจสอบว่ามีการล็อกอินหรือไม่
+if (!isset($_SESSION['email']) || $_SESSION['Userlevel'] !== '2') {
+  header("Location: login.php");
+  exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -14,6 +26,7 @@
                   $story->execute();
                   $sto = $story->fetch();
         ?>
+
         <title><?php echo $sto['name'];?></title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
@@ -91,25 +104,40 @@
 </div>
           </form>
 </div>
-<div class="box">
-    img
-    <br>
-    name
-    <br>
-    subject
-    <br>
-    details
+<br>
+
+<div>
+<table>
+    <?php
+    $sql = "SELECT id, picture, nickname, subject FROM tutor";
+    $stmt = $conn->query($sql);
+
+    $result = $stmt->fetchAll();
+
+    if (count($result) > 0) {
+        foreach ($result as $row) {
+            $picture = $row['picture'];
+            echo '<tr>';
+            echo '<td><img src="data:image/jpeg;base64,'.base64_encode($picture).'"></td>';
+            echo '<td>nickname: ' . $row['nickname'] . ' - subject: ' . $row['subject'] . '</td>';
+            echo '</tr>';
+            echo '<tr>';
+            echo '<td>';
+            echo '<div class="btn-group">';
+            echo '<a href="viewtutor.php?id=' . $row['id'] . '" class="btn btn-warning">Viewdetail</a>'; 
+            echo '</div>';
+            echo '</td>';
+            echo '</tr>';
+        }
+    } else {
+        echo "0 results";
+    }
+
+    ?>
+</table>
 </div>
 
-<style>
-div.box {
-  background-color: white;
-  width: 300px;
-  border: 1px solid black;
-  padding: 50px;
-  margin: 20px;
-}
-</style>
+
          <div class="row">
       <div class="container">
       <div class="row">
@@ -227,4 +255,3 @@ div.box {
 
     </body>
 </html>
-

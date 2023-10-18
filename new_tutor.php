@@ -1,5 +1,15 @@
 <?php
-    include('config/server.php');
+      include('config/db.php');
+?>
+
+<?php
+session_start();
+
+// ตรวจสอบว่ามีการล็อกอินหรือไม่
+if (!isset($_SESSION['email']) || $_SESSION['Userlevel'] !== '2') {
+  header("Location: login.php");
+  exit();
+}
 ?>
 
 <!doctype html>
@@ -9,15 +19,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        
-        <?php
-              include('config/db.php');
-                  $story = $conn->prepare("SELECT * FROM contact where id_con=1");
-                  $story->execute();
-                  $sto = $story->fetch();
-        ?>   
-
-        <title><?php echo $sto['name'];?></title>
+        <title>ลงข้อมูลผู้ติว</title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
         <!-- Bootstrap icons-->
@@ -51,7 +53,7 @@ body{
     <div class="card"><br>
     <center><h2>ลงข้อมูลผู้ติว</h2></center>
     <div class="col-md-12">
-				<form class="login100-form validate-form" name ="form1" method="post" action="new_user.php" class="p-5 bg-white">           
+				<form class="login100-form validate-form" name ="form1" method="post" action="new_tutor.php"  enctype="multipart/form-data" class="p-5 bg-white">           
               <div class="form-group ">
                 <div class="mb-3 mb-md-2">
                   <label class="font-weight-bold" for="nickname">ชื่อเล่น</label>
@@ -65,10 +67,10 @@ body{
                   <select class="form-select"  name="class" required>
                   <option selected>เลือก</option>
                 
-                      <option value="1">ปี1</option>
-                      <option value="2">ปี2</option>
-                      <option value="3">ปี3</option>
-                      <option value="3">ปี4</option>
+                      <option value="ปี1">ปี1</option>
+                      <option value="ปี2">ปี2</option>
+                      <option value="ปี3">ปี3</option>
+                      <option value="ปี4">ปี4</option>
                     </select>               
                 </div>
               </div>
@@ -85,15 +87,15 @@ body{
                   <select class="form-select"  name="subject" required>
                   <option selected>เลือก</option>
                 
-                      <option value="1">ฟิสิกส์ทั่วไป</option>
-                      <option value="2">ชีววิทยาเบื้องต้น</option>
-                      <option value="3">เคมีทั่วไป</option>
-                      <option value="4">สถิติวิเคราะห์</option>
-                      <option value="5">แคลคูลัส</option>
-                      <option value="6">พีชคณิตเชิงเส้นและการประยุกต์</option>
-                      <option value="7">ภาษาอังกฤษพื้นฐาน</option>
-                      <option value="8">ภาษาเกาหลี</option>
-                      <option value="9">ภาษาจีน</option>
+                      <option value="ฟิสิกส์ทั่วไป">ฟิสิกส์ทั่วไป</option>
+                      <option value="ชีววิทยาเบื้องต้น">ชีววิทยาเบื้องต้น</option>
+                      <option value="เคมีทั่วไป">เคมีทั่วไป</option>
+                      <option value="สถิติวิเคราะห์">สถิติวิเคราะห์</option>
+                      <option value="แคลคูลัส">แคลคูลัส</option>
+                      <option value="พีชคณิตเชิงเส้นและการประยุกต์">พีชคณิตเชิงเส้นและการประยุกต์</option>
+                      <option value="ภาษาอังกฤษพื้นฐาน">ภาษาอังกฤษพื้นฐาน</option>
+                      <option value="ภาษาเกาหลี">ภาษาเกาหลี</option>
+                      <option value="ภาษาจีน">ภาษาจีน</option>
                     </select>                   
         
                 </div>
@@ -136,7 +138,7 @@ body{
                 <div style='margin-top:10px;' class='col-12'>
                   <h6 style='font-weight:400;'>แนบรูปถ่าย*</h6>
                   <div class="uploadButton custom-file">
-                  <input required type="file" class="custom-file-input" accept="image/*" name='picture' id="picture">
+                  <input required type="file" class="custom-file-input" accept="image/gif, image/jpeg, image/png" name='picture' id="picture">
                   </div>
                 <small id="priceHelp" class="form-text text-muted">กรุณาแนบรูปถ่ายตนเองที่เห็นหน้าชัดเจน ไม่ใช่ภาพโปรโมท</small>
                 <img hidden id="uploadPreview" src="#" />
@@ -146,7 +148,7 @@ body{
               </div>
               <div class="form-group">
                 <div class="col-md-12">
-                <center><button type="submit" name="save" class="btn btn-primary  py-2 px-4">บันทึก</button></center>
+                <center><button type="submit" name="submit" class="btn btn-primary  py-2 px-4">บันทึก</button></center>
                 </div>
               </div>
               <br>
@@ -155,33 +157,25 @@ body{
           </div>
           </body>
 </html>
+
+
 <?php
-
-include('config/server.php');
-
-if(isset($_POST["save"])){ //เมื่อกดปุ่ม save
-    //กำหนดตัวแปร เก็บค่าจากการ input จากฟอร์ม
-   //ปิด error Notice: Undefined index: id ด้วย @ เพื่อไม่ให้ user เห็น
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nickname = $_POST['nickname'];
-    $class = $_POST['class']; 
+    $class = $_POST['class'];
     $details = $_POST['details'];
-    $subject = $_POST['subject'];  
+    $subject = $_POST['subject'];
     $price = $_POST['price'];
     $date_time = $_POST['date_time'];
     $location = $_POST['location'];
     $contact = $_POST['contact'];
     $picture = $_POST['picture'];
 
-    // บันทึกข้อมูลลงในฐานข้อมูล
-    $sql = "INSERT INTO tutor(Nickname, Class, Details, Subject, Price, Date_time, Location, Contact, Picture) 
-            VALUES ('$nickname', '$class', '$details', '$subject', '$price', '$date_time', '$location', '$contact', '$picture')";
+    $sql = "INSERT INTO tutor (nickname, class, details, subject, price, date_time, location, contact, picture) 
+    VALUES ('$nickname', '$class', '$details', '$subject', '$price', '$date_time', '$location', '$contact', '$picture')";
 
-            if(mysqli_query($conn,$sql)){ 
-              echo "<script>alert('บันทึก');</script>";
-              echo "<script>window.location='search.php';</script>";
-            }
-
-              // ปิดการเชื่อมต่อกับฐานข้อมูล
-              $conn->close();
-}
+  if(mysqli_query($conn,$sql)){ 
+   echo "<script>alert('บันทึก');window.location='search.php';</script>";
+  }
+}    
 ?>
